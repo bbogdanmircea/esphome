@@ -26,11 +26,12 @@ logger:
     level: VERY_VERBOSE
 
 # Enable Home Assistant API
-#api:
+api:
+  password: "admin"
 
 # Example configuration entry
 mqtt:
-  broker: 192.168.0.102
+  broker: 192.168.0.101
   username: admin
   password: admin
 
