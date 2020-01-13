@@ -53,3 +53,9 @@ sensor:
     humidity:
       name: "Living Room Humidity"
     update_interval: 10s
+
+switch:
+  - platform: gpio
+    name: "on_board_led"
+    pin:
+      number: 2
