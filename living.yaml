@@ -53,6 +53,21 @@ sensor:
     humidity:
       name: "Living Room Humidity"
     update_interval: 10s
+    
+  - platform: adc
+    pin: GPIO12
+    filters:
+      - lambda: |-
+          if (x > 3.74) {
+            return 0;
+          } else if (x < 1.53) {
+            return 100;
+          } else {
+            return (3.74-x) / (3.74-1.53) * 100.0;
+          }
+    name: "Soil Moisture Level"
+    update_interval: 30s
+    attenuation: 11db
 
 switch:
   - platform: gpio
