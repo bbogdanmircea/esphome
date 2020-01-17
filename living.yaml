@@ -31,7 +31,7 @@ api:
 
 # Example configuration entry
 mqtt:
-  broker: 192.168.0.101
+  broker: 192.168.0.103
   username: admin
   password: admin
 
