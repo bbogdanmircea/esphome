@@ -23,7 +23,7 @@ captive_portal:
 
 # Enable logging
 logger:
-    level: VERY_VERBOSE
+  level: DEBUG
 
 # Enable Home Assistant API
 api:
@@ -55,18 +55,19 @@ sensor:
     update_interval: 10s
     
   - platform: adc
-    pin: GPIO12
+    pin: 33
     filters:
       - lambda: |-
-          if (x > 3.74) {
+          if (x > 3.7) {
             return 0;
-          } else if (x < 1.53) {
+          } else if (x < 1.18) {
             return 100;
           } else {
-            return (3.74-x) / (3.74-1.53) * 100.0;
+            return (3.7-x) / (3.7-1.18) * 100.0;
           }
+    unit_of_measurement: "%"
     name: "Soil Moisture Level"
-    update_interval: 30s
+    update_interval: 10s
     attenuation: 11db
 
 switch:
@@ -74,3 +75,7 @@ switch:
     name: "on_board_led"
     pin:
       number: 2
+  - platform: gpio
+    name: "pump"
+    pin:
+      number: 4
