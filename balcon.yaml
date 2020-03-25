@@ -1,7 +1,7 @@
 esphome:
-  name: livingroom
-  platform: ESP32
-  board: esp32dev
+  name: balcon
+  platform: ESP8266
+  board: nodemcu
 
 wifi:
   ssid: !secret wifi_ssid
@@ -10,13 +10,13 @@ wifi:
   power_save_mode: none
   # Optional manual IP
   manual_ip:
-    static_ip: 192.168.0.106
+    static_ip: 192.168.0.116
     gateway: 192.168.0.1
     subnet: 255.255.255.0
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "Livingroom Fallback Hotspot"
+    ssid: "Balcony Fallback Hotspot"
     password: "nYiYWH6vryl0"
 
 captive_portal:
@@ -45,37 +45,18 @@ web_server:
 ota:
 
 sensor:
-  - platform: dht
-    model: DHT22
-    pin: GPIO13
-    temperature:
-      name: "Living Room Temperature"
-    humidity:
-      name: "Living Room Humidity"
-    update_interval: 10s
-    
-  - platform: adc
-    pin: 33
-    filters:
-      - lambda: |-
-          if (x > 3.7) {
-            return 0;
-          } else if (x < 1.18) {
-            return 100;
-          } else {
-            return (3.7-x) / (3.7-1.18) * 100.0;
-          }
-    unit_of_measurement: "%"
-    name: "Soil Moisture Level"
-    update_interval: 10s
-    attenuation: 11db
 
 switch:
   - platform: gpio
     name: "on_board_led"
     pin:
       number: 2
+      inverted: true
   - platform: gpio
-    name: "pump"
+    name: "relay1"
     pin:
       number: 4
+  - platform: gpio
+    name: "relay2"
+    pin:
+      number: 5
