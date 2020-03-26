@@ -8,8 +8,8 @@ living
   b.Capacitive Soil Humidity Sensor
   
 balcon
-2.ESP8266 NodeMCU
-  a.Arduino 2x Relay Module
+2.ESP8266 NodeMCU https://www.theengineeringprojects.com/wp-content/uploads/2018/10/Introduction-to-NodeMCU-V3-2.png
+  a.Arduino 2x Relay Module https://www.amazon.de/Ecloud-Relais-Module-Arduino-Special/dp/B00AE1P8KM
   
 HA
 3.Raspberry4 1GB
