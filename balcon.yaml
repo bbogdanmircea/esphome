@@ -23,7 +23,7 @@ captive_portal:
 
 # Enable logging
 logger:
-  level: DEBUG
+  level: VERBOSE
 
 # Enable Home Assistant API
 api:
@@ -44,19 +44,39 @@ web_server:
 
 ota:
 
-sensor:
+binary_sensor:
+  - platform: gpio
+    pin: GPIO4
+    name: "Relay1 Toggle Button"
+    on_state:
+      then:
+        - switch.toggle: b_relay1
+
+  - platform: gpio
+    pin: GPIO5
+    name: "Relay2 Toggle Button"
+    on_state:
+      then:
+        - switch.toggle: b_relay2
 
 switch:
   - platform: gpio
-    name: "on_board_led"
     pin:
       number: 2
       inverted: true
+    name: "Led Status Balcon"
+    id: b_led
+
   - platform: gpio
-    name: "relay1"
     pin:
-      number: 4
+      number: 0
+    name: "Relay Balcon 1"
+    id: b_relay1
+
   - platform: gpio
-    name: "relay2"
     pin:
-      number: 5
+      number: 16
+    name: "Relay Balcon 2"
+    id: b_relay2
+
+
