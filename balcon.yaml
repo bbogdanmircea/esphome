@@ -48,16 +48,22 @@ binary_sensor:
   - platform: gpio
     pin: GPIO4
     name: "Relay1 Toggle Button"
-    on_state:
+    on_press:
       then:
-        - switch.toggle: b_relay1
+        - switch.turn_off: b_relay1
+    on_release:
+      then:
+        - switch.turn_on: b_relay1
 
   - platform: gpio
     pin: GPIO5
     name: "Relay2 Toggle Button"
-    on_state:
+    on_press:
       then:
-        - switch.toggle: b_relay2
+        - switch.turn_off: b_relay2
+    on_release:
+      then:
+        - switch.turn_on: b_relay2
 
 switch:
   - platform: gpio
@@ -70,12 +76,14 @@ switch:
   - platform: gpio
     pin:
       number: 0
+      inverted: true
     name: "Relay Balcon 1"
     id: b_relay1
 
   - platform: gpio
     pin:
       number: 16
+      inverted: true
     name: "Relay Balcon 2"
     id: b_relay2
 
