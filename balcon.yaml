@@ -50,20 +50,20 @@ binary_sensor:
     name: "Relay1 Toggle Button"
     on_press:
       then:
-        - switch.turn_off: b_relay1
-    on_release:
-      then:
-        - switch.turn_on: b_relay1
+        - switch.toggle: b_relay1
+          #    on_release:
+          #      then:
+          #        - switch.turn_on: b_relay1
 
   - platform: gpio
     pin: GPIO5
     name: "Relay2 Toggle Button"
     on_press:
       then:
-        - switch.turn_off: b_relay2
-    on_release:
-      then:
-        - switch.turn_on: b_relay2
+        - switch.toggle: b_relay2
+          #    on_release:
+          #      then:
+          #        - switch.turn_on: b_relay2
 
 switch:
   - platform: gpio
@@ -86,5 +86,6 @@ switch:
       inverted: true
     name: "Relay Balcon 2"
     id: b_relay2
+
 
 
