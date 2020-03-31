@@ -65,20 +65,29 @@ binary_sensor:
           #      then:
           #        - switch.turn_on: b_relay2
 
-status_led:
-  pin:
-    number: 2
-    inverted: True
-  name: "Led Status Balcon"
-  id: b_led
+#status_led:
+#  pin:
+#    number: 2
+#    inverted: True
+#  id: b_led_status
+
+# Example configuration entry
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+    on_time:
+      # Every 5 seconds
+      - seconds: /5
+        then:
+          - switch.toggle: b_led
 
 switch:
-#  - platform: gpio
-#    pin:
-#      number: 2
-#      inverted: true
-#    name: "Led Status Balcon"
-#    id: b_led
+  - platform: gpio
+    pin:
+      number: 2
+      inverted: true
+    name: "Led Status Balcon"
+    id: b_led
 
   - platform: gpio
     pin:
