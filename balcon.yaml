@@ -65,13 +65,20 @@ binary_sensor:
           #      then:
           #        - switch.turn_on: b_relay2
 
+status_led:
+  pin:
+    number: 2
+    inverted: True
+  name: "Led Status Balcon"
+  id: b_led
+
 switch:
-  - platform: gpio
-    pin:
-      number: 2
-      inverted: true
-    name: "Led Status Balcon"
-    id: b_led
+#  - platform: gpio
+#    pin:
+#      number: 2
+#      inverted: true
+#    name: "Led Status Balcon"
+#    id: b_led
 
   - platform: gpio
     pin:
