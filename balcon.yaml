@@ -77,7 +77,7 @@ time:
     id: homeassistant_time
     on_time:
       # Every 5 seconds
-      - seconds: /5
+      - seconds: /30
         then:
           - switch.toggle: b_led
 
