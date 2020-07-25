@@ -72,6 +72,13 @@ binary_sensor:
 #  id: b_led_status
 
 # Example configuration entry
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal Sensor"
+    update_interval: 60s
+    force_update: true
+
+# Example configuration entry
 time:
   - platform: homeassistant
     id: homeassistant_time

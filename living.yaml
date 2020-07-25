@@ -23,7 +23,7 @@ captive_portal:
 
 # Enable logging
 logger:
-  level: DEBUG
+  level: VERBOSE
 
 # Enable Home Assistant API
 api:
@@ -69,13 +69,42 @@ sensor:
     name: "Soil Moisture Level"
     update_interval: 10s
     attenuation: 11db
-
+#Wifi Signal
+  - platform: wifi_signal
+    name: "WiFi Signal Sensor"
+    update_interval: 60s
+    force_update: true
+    
 switch:
   - platform: gpio
     name: "on_board_led"
     pin:
       number: 2
+      
   - platform: gpio
-    name: "pump"
     pin:
-      number: 4
+      number: 12
+      inverted: true
+    name: "Relay Living 1"
+    id: l_relay1
+      
+  - platform: gpio
+    pin:
+      number: 14
+      inverted: true
+    name: "Relay Living 2"
+    id: l_relay2
+
+  - platform: gpio
+    pin:
+      number: 27
+      inverted: true
+    name: "Relay Living 3"
+    id: l_relay3
+
+  - platform: gpio
+    pin:
+      number: 26
+      inverted: true
+    name: "Relay Living 4"
+    id: l_relay4
