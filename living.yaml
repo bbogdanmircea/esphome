@@ -6,14 +6,16 @@ esphome:
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_pwd
-
+  fast_connect: true
+  reboot_timeout: 45min
   power_save_mode: none
   # Optional manual IP
   manual_ip:
     static_ip: 192.168.0.106
     gateway: 192.168.0.1
     subnet: 255.255.255.0
-
+    dns1: 10.10.10.1
+    dns2: 1.1.1.1
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "Livingroom Fallback Hotspot"
@@ -55,7 +57,7 @@ sensor:
     update_interval: 10s
     
   - platform: adc
-    pin: 33
+    pin: 32
     filters:
       - lambda: |-
           if (x > 3.7) {
@@ -83,28 +85,28 @@ switch:
       
   - platform: gpio
     pin:
-      number: 12
+      number: 27
       inverted: true
     name: "Relay Living 1"
     id: l_relay1
       
   - platform: gpio
     pin:
-      number: 14
+      number: 26
       inverted: true
     name: "Relay Living 2"
     id: l_relay2
 
   - platform: gpio
     pin:
-      number: 27
+      number: 25
       inverted: true
     name: "Relay Living 3"
     id: l_relay3
 
   - platform: gpio
     pin:
-      number: 26
+      number: 33
       inverted: true
     name: "Relay Living 4"
     id: l_relay4
