@@ -47,9 +47,68 @@ web_server:
 ota:
 
 # Example minimal configuration entry TTGO T Display
+# We can still control the backlight independently
+switch:
+  - platform: gpio
+    pin: GPIO4
+    name: "Backlight"
+    id: backlight
+
+#image:
+#  - file: "image.png"
+#    id: my_image
+#    resize: 200x200
+#    type: RGB24
+
+time:
+  - platform: homeassistant
+    id: esptime
+
 spi:
   clk_pin: GPIO18
   mosi_pin: GPIO19
+  
+color:
+  - id: my_red
+    red: 100%
+    green: 0%
+    blue: 0%
+  - id: my_yellow
+    red: 100%
+    green: 100%
+    blue: 0%
+  - id: my_green
+    red: 0%
+    green: 100%
+    blue: 0%
+  - id: my_blue
+    red: 0%
+    green: 0%
+    blue: 100%
+  - id: my_gray
+    red: 50%
+    green: 50%
+    blue: 50%
+  
+font:
+  - file: "coolvetica rg.ttf"
+    id: helvetica_48
+    size: 48
+  - file: "coolvetica rg.ttf"
+    id: helvetica_24
+    size: 24
+  - file: "coolvetica rg.ttf"
+    id: helvetica_12
+    size: 12
+
+#display:
+#  - platform: st7789v
+#    backlight_pin: GPIO4
+#    cs_pin: GPIO5
+#    dc_pin: GPIO16
+#    reset_pin: GPIO23
+#    lambda: |-
+#      it.print(0, 0, id(helvetica_12), "Hello World!");
 
 display:
   - platform: st7789v
@@ -57,10 +116,61 @@ display:
     cs_pin: GPIO5
     dc_pin: GPIO16
     reset_pin: GPIO23
+    rotation: 270
     lambda: |-
-      it.print(0, 0, id(font), "Hello World!");
+      it.rectangle(0,  0, it.get_width()-10, it.get_height()-10, id(my_blue));
+      //it.rectangle(0, 20, it.get_width()-10, it.get_height()-10, id(my_blue));   // header bar
+      
+      // Print date and time on a row at 1/3 of height
+      it.strftime((240 / 3) * 1, (135 / 3) * 1 + 5, id(helvetica_24), id(my_gray), TextAlign::CENTER, "%Y-%m-%d", id(esptime).now());
+      it.strftime((240 / 3) * 2, (135 / 3) * 1 + 5, id(helvetica_24), id(my_gray), TextAlign::CENTER, "%H:%M", id(esptime).now());
+      
+      // Print ESPHome in left top corner
+      it.print(5, 5, id(helvetica_12), id(my_yellow), TextAlign::TOP_LEFT, "ESPHome");
 
-# Example configuration entry
+      // Comment out the above lines to see the image without text overlaid
+      // it.image(0, 0, id(my_image));
+      
+      // Print Online/Offline in right top corner
+      if (id(system_status).state) {
+        it.print(230, 5, id(helvetica_12), id(my_green), TextAlign::TOP_RIGHT, "Online");
+      }
+      else {
+        it.print(230, 5, id(helvetica_12), id(my_red), TextAlign::TOP_RIGHT, "Offline");
+      }
+      
+      // Print PPM Value in the bottom
+      if (id(mhz19_co2_ppm).state < 750) {
+      	it.printf((240 / 2), (135 / 3) * 2 + 5, id(helvetica_48), id(my_green), TextAlign::CENTER, "%.0f ppm", id(mhz19_co2_ppm).state);
+      } 
+      else  
+        if (id(mhz19_co2_ppm).state < 1000) {
+          it.printf((240 / 2), (135 / 3) * 2 + 5, id(helvetica_48), id(my_yellow), TextAlign::CENTER, "%.0f ppm",id(mhz19_co2_ppm).state);
+        } 
+        else { 
+          it.printf((240 / 2), (135 / 3) * 2 + 5, id(helvetica_48), id(my_red), TextAlign::CENTER, "%.0f ppm", id(mhz19_co2_ppm).state);
+        }
+      
+      
+binary_sensor:
+  - platform: status
+    name: "Node Status"
+    id: system_status
+  - platform: gpio
+    pin:
+      number: GPIO0
+      inverted: true
+      mode: INPUT_PULLUP
+    name: "T-Display Button Input 0"
+    id: tdisplay_button_input_0
+  - platform: gpio
+    pin:
+      number: GPIO35
+      inverted: true
+    name: "T-Display Button Input 1"
+    id: tdisplay_button_input_1
+
+# Example configuration entry MH-Z19 CO2 Sensor
 uart:
   rx_pin: GPIO26
   tx_pin: GPIO27
@@ -70,6 +180,7 @@ sensor:
   - platform: mhz19
     co2:
       name: "MH-Z19 CO2 Value"
+      id: mhz19_co2_ppm
     temperature:
       name: "MH-Z19 Temperature"
     update_interval: 60s
