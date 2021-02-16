@@ -150,8 +150,7 @@ display:
         else { 
           it.printf((240 / 2), (135 / 3) * 2 + 5, id(helvetica_48), id(my_red), TextAlign::CENTER, "%.0f ppm", id(mhz19_co2_ppm).state);
         }
-      
-      
+
 binary_sensor:
   - platform: status
     name: "Node Status"
@@ -183,8 +182,8 @@ sensor:
       id: mhz19_co2_ppm
     temperature:
       name: "MH-Z19 Temperature"
-    update_interval: 60s
-    automatic_baseline_calibration: false
+    update_interval: 30s
+    automatic_baseline_calibration: true
 
 #Wifi Signal
   - platform: wifi_signal
@@ -192,36 +191,10 @@ sensor:
     update_interval: 60s
     force_update: true
     
-#switch:
-#  - platform: gpio
-#    name: "on_board_led"
-#    pin:
-#      number: 2
-#      
-#  - platform: gpio
-#    pin:
-#      number: 27
-#      inverted: true
-#    name: "Relay Living 1"
-#    id: l_relay1
-#      
-#  - platform: gpio
-#    pin:
-#      number: 26
-#      inverted: true
-#    name: "Relay Living 2"
-#    id: l_relay2
-#
-#  - platform: gpio
-#    pin:
-#      number: 25
-#      inverted: true
-#    name: "Relay Living 3"
-#    id: l_relay3
-#
-#  - platform: gpio
-#    pin:
-#      number: 33
-#      inverted: true
-#    name: "Relay Living 4"
-#    id: l_relay4
+  - platform: adc
+    pin: GPIO34
+    name: "Battery Voltage"
+    update_interval: 10s
+    attenuation: 11db
+    filters:
+      - multiply: 2
