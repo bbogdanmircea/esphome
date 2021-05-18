@@ -89,13 +89,23 @@ switch:
       inverted: true
     name: "Relay Living 1"
     id: l_relay1
-      
+    #Safety Automation to self turn off relay after 45s
+    on_turn_on:
+      then:
+        - delay: 45s
+        - switch.turn_off: l_relay1
+          
   - platform: gpio
     pin:
       number: 26
       inverted: true
     name: "Relay Living 2"
     id: l_relay2
+    #Safety Automation to self turn off relay after 45s
+    on_turn_on:
+      then:
+        - delay: 45s
+        - switch.turn_off: l_relay2
 
   - platform: gpio
     pin:
@@ -103,10 +113,20 @@ switch:
       inverted: true
     name: "Relay Living 3"
     id: l_relay3
-
+    #Safety Automation to self turn off relay after 45s
+    on_turn_on:
+      then:
+        - delay: 45s
+        - switch.turn_off: l_relay3
+    
   - platform: gpio
     pin:
       number: 33
       inverted: true
     name: "Relay Living 4"
     id: l_relay4
+    #Safety Automation to self turn off relay after 45s
+    on_turn_on:
+      then:
+        - delay: 45s
+        - switch.turn_off: l_relay4
