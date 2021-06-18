@@ -1,0 +1,103 @@
+esphome:
+  name: dormitor_colt
+  platform: ESP32
+  board: esp32dev
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_pwd
+  fast_connect: true
+  reboot_timeout: 45min
+  power_save_mode: none
+  # Optional manual IP
+  manual_ip:
+    static_ip: 192.168.0.107
+    gateway: 192.168.0.1
+    subnet: 255.255.255.0
+    dns1: 10.10.10.1
+    dns2: 1.1.1.1
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Dormitor Colt Fallback Hotspot"
+    password: "nYiYWH6vryl0"
+
+captive_portal:
+
+# Enable logging
+logger:
+  level: VERY_VERBOSE
+
+# Enable Home Assistant API
+api:
+  password: !secret HA_API_pwd
+
+# Example configuration entry
+#mqtt:
+#  broker: 192.168.0.113
+#  username: !secret mqtt_user
+#  password: !secret mqtt_pwd
+
+# Example configuration entry
+web_server:
+  port: 80
+  auth:
+    username: !secret web_server_user
+    password: !secret web_server_pwd
+
+ota:
+
+esp32_ble_tracker:
+
+# Example configuration entry for ESP32
+i2c:
+  sda: 21
+  scl: 22
+  scan: False
+  id: bus_a
+  frequency: 50000
+
+sensor:
+  - platform: bme280
+    temperature:
+      name: "BME280 Temperature"
+      oversampling: 16x
+    pressure:
+      name: "BME280 Pressure"
+    humidity:
+      name: "BME280 Humidity"
+    address: 0x76
+    update_interval: 20s
+        
+#Wifi Signal
+  - platform: wifi_signal
+    name: "WiFi Signal Sensor"
+    update_interval: 30s
+    force_update: true
+
+#Xiaomi sensors with ATC firmware and Mi Like advertisement    
+  - platform: xiaomi_lywsd03mmc
+    mac_address: "A4:C1:38:6F:55:D5"
+    bindkey: "eef418daf699a0c188f3bfd17e4565d9"
+    temperature:
+      name: "ATC Temperature Dormitor"
+    humidity:
+      name: "ATC Humidity Dormitor"
+    battery_level:
+      name: "ATC Battery-Level Dormitor"
+            
+  - platform: xiaomi_lywsd03mmc
+    mac_address: "A4:C1:38:A0:FE:DF"
+    bindkey: "eef418daf699a0c188f3bfd17e4565d9"
+    temperature:
+      name: "ATC Temperature Dormitor Colt"
+    humidity:
+      name: "ATC Humidity Dormitor Colt"
+    battery_level:
+      name: "ATC Battery-Level Dormitor Colt"
+
+#Onboard led      
+switch:
+  - platform: gpio
+    name: "on_board_led"
+    pin:
+      number: 13

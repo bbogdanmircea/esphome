@@ -25,8 +25,8 @@ captive_portal:
 
 # Enable logging
 logger:
-  level: DEBUG
-
+  level: VERY_VERBOSE
+  
 # Enable Home Assistant API
 api:
   password: !secret HA_API_pwd
@@ -45,6 +45,8 @@ web_server:
     password: !secret web_server_pwd
 
 ota:
+
+#esp32_ble_tracker:
 
 # Example minimal configuration entry TTGO T Display
 # We can still control the backlight independently
@@ -198,3 +200,13 @@ sensor:
     attenuation: 11db
     filters:
       - multiply: 2
+      
+#  - platform: xiaomi_lywsd03mmc
+#    mac_address: "A4:C1:38:6F:55:D5"
+#    bindkey: "eef418daf699a0c188f3bfd17e4565d9"
+#    temperature:
+#      name: "ATC Temperature Dormitor"
+#    humidity:
+#      name: "ATC Humidity Dormitor"
+#    battery_level:
+#      name: "ATC Battery-Level Dormitor"

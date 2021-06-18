@@ -46,6 +46,8 @@ web_server:
 
 ota:
 
+esp32_ble_tracker:
+
 sensor:
   - platform: dht
     model: DHT22
@@ -71,11 +73,27 @@ sensor:
     name: "Soil Moisture Level"
     update_interval: 10s
     attenuation: 11db
+    
+  - platform: adc
+    pin: 32
+    unit_of_measurement: "V"
+    name: "Soil Moisture Voltage"
+    
 #Wifi Signal
   - platform: wifi_signal
     name: "WiFi Signal Sensor"
     update_interval: 60s
     force_update: true
+    
+  - platform: xiaomi_lywsd03mmc
+    mac_address: "A4:C1:38:A2:09:D5"
+    bindkey: "eef418daf699a0c188f3bfd17e4565d9"
+    temperature:
+      name: "ATC Temperature Living"
+    humidity:
+      name: "ATC Humidity Living"
+    battery_level:
+      name: "ATC Battery-Level Living"
     
 switch:
   - platform: gpio
