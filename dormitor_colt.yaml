@@ -7,7 +7,7 @@ wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_pwd
   fast_connect: true
-  reboot_timeout: 45min
+  reboot_timeout: 30min
   power_save_mode: none
   # Optional manual IP
   manual_ip:
@@ -49,24 +49,24 @@ ota:
 esp32_ble_tracker:
 
 # Example configuration entry for ESP32
-i2c:
-  sda: 21
-  scl: 22
-  scan: False
-  id: bus_a
-  frequency: 50000
+#i2c:
+#  sda: 21
+#  scl: 22
+#  scan: False
+#  id: bus_a
+#  frequency: 50000
 
 sensor:
-  - platform: bme280
-    temperature:
-      name: "BME280 Temperature"
-      oversampling: 16x
-    pressure:
-      name: "BME280 Pressure"
-    humidity:
-      name: "BME280 Humidity"
-    address: 0x76
-    update_interval: 20s
+#  - platform: bme280
+#    temperature:
+#      name: "BME280 Temperature"
+#      oversampling: 16x
+#    pressure:
+#      name: "BME280 Pressure"
+#    humidity:
+#      name: "BME280 Humidity"
+#    address: 0x76
+#    update_interval: 20s
         
 #Wifi Signal
   - platform: wifi_signal
