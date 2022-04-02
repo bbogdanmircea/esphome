@@ -25,7 +25,7 @@ captive_portal:
 
 # Enable logging
 logger:
-  level: VERY_VERBOSE
+  level: VERBOSE
 
 # Enable Home Assistant API
 api:
@@ -75,9 +75,9 @@ sensor:
     force_update: true
 
 #Xiaomi sensors with ATC firmware and Mi Like advertisement    
-  - platform: xiaomi_lywsd03mmc
+  - platform: atc_mithermometer
     mac_address: "A4:C1:38:6F:55:D5"
-    bindkey: "eef418daf699a0c188f3bfd17e4565d9"
+    #bindkey: "eef418daf699a0c188f3bfd17e4565d9"
     temperature:
       name: "ATC Temperature Dormitor"
     humidity:
@@ -85,9 +85,9 @@ sensor:
     battery_level:
       name: "ATC Battery-Level Dormitor"
             
-  - platform: xiaomi_lywsd03mmc
+  - platform: atc_mithermometer
     mac_address: "A4:C1:38:A0:FE:DF"
-    bindkey: "eef418daf699a0c188f3bfd17e4565d9"
+   # bindkey: "eef418daf699a0c188f3bfd17e4565d9"
     temperature:
       name: "ATC Temperature Dormitor Colt"
     humidity:

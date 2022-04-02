@@ -86,9 +86,9 @@ sensor:
     force_update: true
 
 #Xiaomi sensors with ATC firmware and Mi Like advertisement    
-  - platform: xiaomi_lywsd03mmc
+  - platform: atc_mithermometer
     mac_address: "A4:C1:38:A2:09:D5"
-    bindkey: "eef418daf699a0c188f3bfd17e4565d9"
+    #bindkey: "eef418daf699a0c188f3bfd17e4565d9"
     temperature:
       name: "ATC Temperature Living"
     humidity:
